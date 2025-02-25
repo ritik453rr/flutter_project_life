@@ -1,22 +1,24 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:life/common/app_colors.dart';
 import 'package:life/common/app_fonts.dart';
 import 'package:life/common/common_ui.dart';
 import 'package:life/common/note/note_controller.dart';
-import 'package:life/database/note_entity.dart';
+import 'package:life/navigation/app_routes.dart';
 
 /// View for [HomeView].
 class HomeView extends StatelessWidget {
   HomeView({super.key});
-  
+
   final NoteController noteController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return ColorfulSafeArea(
-      color: Colors.blue,
+      color: AppColors.customGreen,
       child: Scaffold(
+        backgroundColor: AppColors.white,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(right: 8, bottom: 40),
           child: SizedBox(
@@ -24,14 +26,16 @@ class HomeView extends StatelessWidget {
             width: 60,
             child: FloatingActionButton(
               splashColor: Colors.transparent,
-              backgroundColor: Colors.blue,
+              backgroundColor: AppColors.customGreen,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoutes.addNote, arguments: noteController);
+              },
               child: const Icon(
                 Icons.add,
-                color: Colors.white,
+                color: AppColors.white,
               ),
             ),
           ),
@@ -46,7 +50,7 @@ class HomeView extends StatelessWidget {
                 contentPadding: EdgeInsets.zero,
                 title: Text(
                   noteController.notes[index].title,
-                  style: CommonUi.customTextStyle(),
+                  style: CommonUi.customTextStyle(fontFamily: AppFonts.medium),
                 ),
                 subtitle: Text(
                   noteController.notes[index].data,
