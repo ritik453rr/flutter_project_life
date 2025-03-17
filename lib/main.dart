@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life/common/app_colors.dart';
+import 'package:life/database/app_storage.dart';
 import 'package:life/navigation/app_routes.dart';
 import 'package:life/navigation/app_pages.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AppStorage.initDatabase();
   runApp(const MyApp());
 }
 

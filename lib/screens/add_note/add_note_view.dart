@@ -5,13 +5,13 @@ import 'package:life/common/app_colors.dart';
 import 'package:life/common/app_fonts.dart';
 import 'package:life/common/custom_appbar.dart';
 import 'package:life/common/custom_textfield.dart';
+import 'package:life/database/app_storage.dart';
 import 'package:life/database/note_entity.dart';
 import 'package:life/global.dart';
 import 'package:life/screens/add_note/add_note_controller.dart';
 
-class AddNoteView extends StatelessWidget {
-  AddNoteView({super.key});
-  final AddNoteController controller = Get.find();
+class AddNoteView extends GetView<AddNoteController> {
+  const AddNoteView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class AddNoteView extends StatelessWidget {
             onTapTrailingText: () async {
               if (controller.titleController.text.isNotEmpty ||
                   controller.contentController.text.isNotEmpty) {
-                final NoteEntity note = NoteEntity(
+                final GoalEntity note = GoalEntity(
                   title: controller.titleController.text.isEmpty
                       ? 'No Title'
                       : controller.titleController.text,
@@ -36,7 +36,7 @@ class AddNoteView extends StatelessWidget {
                       ? 'No text'
                       : controller.contentController.text,
                 );
-                await controller.noteController.addNote(note);
+                await AppStorage.addGoal(note);
                 Get.back();
               }
             },

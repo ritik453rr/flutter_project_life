@@ -3,24 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:life/common/app_colors.dart';
 import 'package:life/common/app_font_size.dart';
-import 'package:life/common/app_fonts.dart';
 import 'package:life/common/common_ui.dart';
 import 'package:life/common/img_res.dart';
-import 'package:life/database/app_storage.dart';
-import 'package:life/database/note_entity.dart';
 import 'package:life/global.dart';
-import 'package:life/navigation/app_routes.dart';
+import 'package:life/screens/view_page/view_page_controller.dart';
 
-/// HomeView is the main screen of the app where the user can see all the notes.
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+/// ViewPage is the screen where the user can view the details of a note.
+class ViewPage extends GetView<ViewPageController> {
+  const ViewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ColorfulSafeArea(
       color: AppColors.customGreen,
-      child: 
-      Scaffold(
+      child: Scaffold(
         backgroundColor: AppColors.white,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(right: 8, bottom: 40),
@@ -33,9 +29,7 @@ class HomeView extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(32),
               ),
-              onPressed: () {
-                Get.toNamed(AppRoutes.addNote);
-              },
+              onPressed: () {},
               child: const Icon(
                 ImgRes.iconAdd,
                 color: AppColors.white,
@@ -53,46 +47,43 @@ class HomeView extends StatelessWidget {
                 height: 15,
               ),
               Text(
-                "Life Goals",
+                controller.goal?.title ?? '',
                 style: CommonUi.customTextStyle(
                   fontSize: AppFontSize.font27,
                   color: AppColors.customGrey,
                 ),
               ),
-              Obx(
-                () => ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: AppStorage.goals.length,
-                  itemBuilder: (context, index) {
-                    var goal = AppStorage.goals[index];
-                    return ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      onTap: () {
-                        Get.toNamed(
-                          AppRoutes.viewPage,
-                          arguments: goal.id,
-                        );
-                      },
-                      title: Text(
-                        goal.title,
-                        style: CommonUi.customTextStyle(
-                            fontFamily: AppFonts.medium),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          AppStorage.deleteGoal(AppStorage.goals[index]);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
+
+              // ListView.builder(
+              //   shrinkWrap: true,
+              //   itemCount: AppStorage.notes.length,
+              //   itemBuilder: (context, index) {
+              //     return ListTile(
+              //       contentPadding: EdgeInsets.zero,
+              //       onTap: () {
+              //         Get.toNamed(
+              //           AppRoutes.viewPage,
+              //         );
+              //       },
+              //       title: Text(
+              //         AppStorage.notes[index].title,
+              //         style: CommonUi.customTextStyle(
+              //             fontFamily: AppFonts.medium),
+              //       ),
+              //       subtitle: Text(AppStorage.notes[index].data),
+              //       trailing: IconButton(
+              //         icon: const Icon(Icons.delete),
+              //         onPressed: () {
+              //           AppStorage.deleteGoal(AppStorage.notes[index]);
+              //         },
+              //       ),
+              //     );
+              //   },
+              // ),
             ],
           ),
         ),
       ),
-    
     );
   }
 }

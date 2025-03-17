@@ -107,7 +107,7 @@ class _$MainDao extends MainDao {
         _noteEntityInsertionAdapter = InsertionAdapter(
             database,
             'NoteEntity',
-            (NoteEntity item) => <String, Object?>{
+            (GoalEntity item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
                   'data': item.data
@@ -116,7 +116,7 @@ class _$MainDao extends MainDao {
             database,
             'NoteEntity',
             ['id'],
-            (NoteEntity item) => <String, Object?>{
+            (GoalEntity item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
                   'data': item.data
@@ -125,7 +125,7 @@ class _$MainDao extends MainDao {
             database,
             'NoteEntity',
             ['id'],
-            (NoteEntity item) => <String, Object?>{
+            (GoalEntity item) => <String, Object?>{
                   'id': item.id,
                   'title': item.title,
                   'data': item.data
@@ -137,34 +137,34 @@ class _$MainDao extends MainDao {
 
   final QueryAdapter _queryAdapter;
 
-  final InsertionAdapter<NoteEntity> _noteEntityInsertionAdapter;
+  final InsertionAdapter<GoalEntity> _noteEntityInsertionAdapter;
 
-  final UpdateAdapter<NoteEntity> _noteEntityUpdateAdapter;
+  final UpdateAdapter<GoalEntity> _noteEntityUpdateAdapter;
 
-  final DeletionAdapter<NoteEntity> _noteEntityDeletionAdapter;
+  final DeletionAdapter<GoalEntity> _noteEntityDeletionAdapter;
 
   @override
-  Future<List<NoteEntity>> getAllNotes() async {
+  Future<List<GoalEntity>> fetchAllGoals() async {
     return _queryAdapter.queryList('SELECT * FROM NoteEntity',
-        mapper: (Map<String, Object?> row) => NoteEntity(
+        mapper: (Map<String, Object?> row) => GoalEntity(
             id: row['id'] as int?,
             title: row['title'] as String,
             data: row['data'] as String));
   }
 
   @override
-  Future<void> insertNote(NoteEntity noteEntity) async {
+  Future<void> insertGoal(GoalEntity noteEntity) async {
     await _noteEntityInsertionAdapter.insert(
         noteEntity, OnConflictStrategy.abort);
   }
 
   @override
-  Future<void> updateNote(NoteEntity noteEntity) async {
+  Future<void> updateNote(GoalEntity noteEntity) async {
     await _noteEntityUpdateAdapter.update(noteEntity, OnConflictStrategy.abort);
   }
 
   @override
-  Future<void> deleteNote(NoteEntity noteEntity) async {
+  Future<void> deleteNote(GoalEntity noteEntity) async {
     await _noteEntityDeletionAdapter.delete(noteEntity);
   }
 }

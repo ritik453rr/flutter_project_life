@@ -1,11 +1,11 @@
 import 'package:floor/floor.dart';
 
 @Entity()
-class NoteEntity {
+class GoalEntity {
   @PrimaryKey(autoGenerate: true)
   int? id;
   String title;
   String data;
 
-  NoteEntity({this.id, required this.title, required this.data});
+  GoalEntity({this.id, required this.title, required this.data});
 }
